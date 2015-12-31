@@ -1,0 +1,3 @@
+[submodule "docker-anaconda3"]
+	path = docker-anaconda3
+	url = git@github.com:nicerobot/docker-anaconda3.git
