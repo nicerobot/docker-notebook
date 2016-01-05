@@ -1,6 +1,6 @@
-.PHONY: build run editor notebook all anaconda anaconda3
+.PHONY: build run editor notebook all anaconda anaconda3 data
 
-build: anaconda
+build: anaconda data
 	docker build -t nicerobot/notebook .
 
 run editor notebook:
@@ -11,3 +11,6 @@ anaconda anaconda3: docker-anaconda3/Dockerfile
 
 docker-anaconda3/Dockerfile:
 	git submodule update --init
+
+data:
+	docker create -v /notebooks --name notebooks nicerobot/notebook /bin/true; true
