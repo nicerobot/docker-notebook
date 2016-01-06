@@ -1,7 +1,7 @@
 #!/bin/bash -xv
 
 [ "$1" = "notebook" ] && {
-	jupyter ${*}
+	exec jupyter ${*}
 	exit $?
 }
 
