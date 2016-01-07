@@ -1,9 +1,9 @@
 .PHONY: build run editor notebook all anaconda anaconda3 volumes
 
-build: anaconda volumes
+build: anaconda
 	docker build -t nicerobot/notebook .
 
-run editor notebook:
+run editor notebook: volumes
 	docker run -p 8888:8888 -d nicerobot/notebook notebook --no-browser
 
 anaconda anaconda3: docker-anaconda3/Dockerfile
