@@ -9,6 +9,10 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 COPY etc/skel /etc/
 
+RUN apt-get update \
+		&& apt-get install -y libpq-dev libice6 libsm6 libxt6 libxrender1 libfontconfig1 libcups2 libxmu6 \
+	  && rm -rf /var/lib/apt/lists/*
+
 # Install kernels and libraries
 RUN conda install -y gdal \
     && conda install -y -c r r-essentials r-devtools r-curl r-maptools r-raster \
@@ -23,6 +27,9 @@ RUN conda install -y gdal \
 # https://github.com/ContinuumIO/anaconda-issues/issues/72
 RUN mkdir -p /etc/pki/tls/certs/ \
     && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt
+
+COPY install.R /tmp
+RUN R -f /tmp/install.R || true
 
 VOLUME ${HOME}/notebooks
 WORKDIR ${HOME}/notebooks
